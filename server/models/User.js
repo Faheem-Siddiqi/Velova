@@ -12,19 +12,19 @@ const userSchema = new mongoose.Schema(
         },
         email: {
             type: String,
-            required: true,
+            required: [true, "Please enter an Email"],
             unique: true,
         },
         password: {
             type: String,
-            required: true,
+            required: [true, "Please enter Password"],
         },
         address: {
             type: String,
         },
         location: {
             type: String,
-            required: true,
+            required: [true, "Please enter Location"],
         },
         state: {
             type: String,
@@ -39,15 +39,12 @@ const userSchema = new mongoose.Schema(
         userType: {
             type: String,
             enum: ['admin', 'user', 'advanceTechnician', 'technician'],
-            required: true,
+            required: [true, "Please enter useType"],
         },
         // Technicians
         availability: {
             type: String,
             enum: ['male', 'female', 'other'],
-        },
-        qrCode: {
-            type: String,
         },
         // Electrical engineer
         businessName: {

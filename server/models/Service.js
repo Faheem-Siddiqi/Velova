@@ -3,15 +3,15 @@ const serviceSchema = new mongoose.Schema(
   {
     serviceTitle: {
       type: String,
-      required: true,
+      required: [true, "Please enter service title"],
     },
     serviceDescription: {
       type: String,
-      required: true,
+      required: [true, "Please enter service description"],
     },
     RatePerHour: {
       type: Number,
-      required: true,
+      required: [true, "Please enter rate per hour"],
     },
     availability: [{
       day: {
@@ -34,6 +34,8 @@ const serviceSchema = new mongoose.Schema(
       required: true
     },
   },
+
+  // comments for dissatisfied services
   { timestamps: true }
 );
 const Service = mongoose.model('Service', serviceSchema);
