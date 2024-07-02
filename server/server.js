@@ -1,32 +1,35 @@
 import express from "express";
 import cors from "cors";
-// Manual
 import morgan from 'morgan';
-import dotenv from 'dotenv';
- import connectDB from './db/connection.js'
-dotenv.config({path:'./config.env' });
-// In package.json added "type": "module", and change the main key value to this file name
-//Manul
-const PORT = process.env.PORT  ;
+import {PORT} from './config.js';
+import {ATLAS_URI} from "./config.js";
+import mongoose from "mongoose";
+
 const app = express();
+
+//Middlewares
 app.use(cors());
 app.use(express.json());
-// Manual
 app.use(morgan('tiny'));
-app.disable('x-powered-by'); 
-//Manual
+app.disable('x-powered-by');
 
+//Route
 app.get('/', (req, res) => {
-  res.status(201).json("FAHEEM GET Request");
+  res.status(201).json("Welcome to Velovo backend");
 });
 
 
-connectDB().then((db) => {
-  app.locals.db = db; 
-
-  app.listen(PORT, () => {
-    console.log(`Server Listening on Port: http://localhost:${PORT}`);
-  });
-}).catch((error) => {
-  console.error('Could not connect to MongoDB:', error);
+app.listen(PORT, () => {
+  console.log(`Server Listening on Port: http://localhost:${PORT}`);
 });
+
+
+//Mongodb connection
+mongoose.connect(ATLAS_URI)
+.then(()=>{
+  console.log("App connected to database");
+})
+.catch((error)=>{
+  console.log(error);
+});
+
